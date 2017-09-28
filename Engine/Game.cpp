@@ -100,8 +100,9 @@ void Game::ComposeFrame()
 	gfx.DrawSprite(xPos, yPos, source, gfx.GetScreenRect(), surf);*/
 
 	//marleRight.Draw( { wnd.mouse.GetPosX(), wnd.mouse.GetPosY() }, gfx);
+	font.DrawText("Hi Bea!\nHow are you?", wnd.mouse.GetPos(), Colors::Cyan, gfx);
 	link.Draw(gfx);
 
-	font.DrawText("Hi Bea!\nHow are you?", wnd.mouse.GetPos(), Colors::Cyan, gfx);
+	
 
 }

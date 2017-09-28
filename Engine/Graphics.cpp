@@ -480,10 +480,12 @@ void Graphics::DrawSpriteSubstitute(int x, int y, Color substitute, RectI srcRec
 
 void Graphics::DrawSpriteGhost(int x, int y, const Surface & s, Color chroma)
 {
+	DrawSpriteGhost(x, y, s.GetRect(), s, chroma);
 }
 
 void Graphics::DrawSpriteGhost(int x, int y, const RectI & srcRect, const Surface & s, Color chroma)
 {
+	DrawSpriteGhost(x, y,  srcRect, GetScreenRect(), s, chroma);
 }
 
 void Graphics::DrawSpriteGhost(int x, int y, RectI srcRect, const RectI & clip, const Surface & s, Color chroma)
