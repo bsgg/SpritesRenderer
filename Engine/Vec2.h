@@ -69,7 +69,7 @@ public:
 		return *this = GetNormalized();
 	}
 
-	Vec2_ GetNormalized() const
+	Vec2 GetNormalized() const
 	{
 		const T len = GetLength();
 		if (len != (T)0)
