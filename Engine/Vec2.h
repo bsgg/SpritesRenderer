@@ -6,6 +6,7 @@ template<typename T>
 class Vec2
 {
 public:
+	Vec2() = default;
 	Vec2(T x_in, T y_in)
 		:
 		x(x_in),
@@ -61,6 +62,21 @@ public:
 	int GetLengthSq() const
 	{
 		return x * x + y * y;
+	}
+
+	Vec2& Normalize()
+	{
+		return *this = GetNormalized();
+	}
+
+	Vec2_ GetNormalized() const
+	{
+		const T len = GetLength();
+		if (len != (T)0)
+		{
+			return *this * ((T)1 / len);
+		}
+		return *this;
 	}
 
 public:
