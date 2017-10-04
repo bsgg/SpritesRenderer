@@ -1,24 +1,69 @@
 #pragma once
 
-#include "Vei2.h"
+#include <cmath>
 
+template<typename T>  
 class Vec2
 {
 public:
-	Vec2() = default;
-	Vec2( float x_in,float y_in );
-	Vec2 operator+( const Vec2& rhs ) const;
-	Vec2& operator+=( const Vec2& rhs );
-	Vec2 operator*( float rhs ) const;
-	Vec2& operator*=( float rhs );
-	Vec2 operator-( const Vec2& rhs ) const;
-	Vec2& operator-=( const Vec2& rhs );
-	float GetLength() const;
-	float GetLengthSq() const;
-	Vec2& Normalize();
-	Vec2 GetNormalized() const;
-	explicit operator Vei2() const;
+	Vec2(T x_in, T y_in)
+		:
+		x(x_in),
+		y(y_in)
+	{
+	}
+
+	Vec2 operator+(const Vei2& rhs) const
+	{
+		return Vei2(x + rhs.x, y + rhs.y);
+	}
+
+	Vec2& operator+=(const Vei2& rhs)
+	{
+		return *this = *this + rhs;
+	}
+
+	Vec2 operator*(int rhs) const
+	{
+		return Vei2(x * rhs, y * rhs);
+	}
+
+	Vec2& operator*=(int rhs)
+	{
+		return *this = *this * rhs;
+	}
+
+	Vec2 operator-(const Vei2& rhs) const
+	{
+		return Vei2(x - rhs.x, y - rhs.y);
+	}
+
+	Vec2& operator-=(const Vei2& rhs)
+	{
+		return *this = *this - rhs;
+	}
+
+	Vec2 operator/(int rhs) const
+	{
+		return Vei2(x / rhs, y / rhs);
+	}
+
+	Vec2& operator/=(int rhs)
+	{
+		return *this = *this / rhs;
+	}
+
+	T GetLength() const
+	{
+		return std::sqrt(T(GetLengthSq()));
+	}
+
+	int GetLengthSq() const
+	{
+		return x * x + y * y;
+	}
+
 public:
-	float x;
-	float y;
+	T x;
+	T y;
 };
