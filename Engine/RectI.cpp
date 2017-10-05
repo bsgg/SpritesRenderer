@@ -40,7 +40,7 @@ bool RectI::Contains( const Vei2& point ) const
 
 RectI RectI::FromCenter( const Vei2 & center,int halfWidth,int halfHeight )
 {
-	const Vei2 half( halfWidth,halfHeight );
+	const Vei2 half(halfWidth, halfHeight);
 	return RectI( center - half,center + half );
 }
 
