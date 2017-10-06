@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Colors.h"
-#include "RectI.h"
+#include "Rect.h"
 #include <string>
 
 // Surface is a 2D array of pixels to represent a image
