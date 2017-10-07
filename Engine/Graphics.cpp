@@ -325,7 +325,7 @@ void Graphics::PutPixel( int x,int y,Color c )
 	assert( y < int( Graphics::ScreenHeight ) );
 	pSysBuffer[Graphics::ScreenWidth * y + x] = c;
 }
-
+/*
 void Graphics::DrawSpriteNonChroma(int x, int y, const Surface& s)
 {
 	DrawSpriteNonChroma(x, y, s.GetRect(), s);
@@ -542,7 +542,7 @@ void Graphics::DrawSpriteGhost(int x, int y, RectI srcRect, const RectI & clip, 
 
 }
 
-
+*/
 
 RectI Graphics::GetScreenRect()
 {
