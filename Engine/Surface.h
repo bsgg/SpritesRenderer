@@ -12,8 +12,11 @@ public:
 
 	Surface(int width, int height);
 	Surface(const Surface& );
+	Surface(Surface &&); // Move constructor
+	Surface() = default;
 	~Surface();
 	Surface& operator=(const Surface&);
+	Surface& operator=( Surface&&); // Move assigment operator
 	void PutPixel(int x, int y, Color c);
 	Color GetPixel(int x, int y) const;
 	int GetWidth() const;
@@ -25,7 +28,7 @@ private:
 
 	// Array of colors (pointers)
 	Color* pPixels = nullptr;
-	int width;
-	int height;
+	int width = 0;
+	int height = 0;
 
 };
