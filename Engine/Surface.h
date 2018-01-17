@@ -3,6 +3,7 @@
 #include "Colors.h"
 #include "Rect.h"
 #include <string>
+#include <memory>
 
 // Surface is a 2D array of pixels to represent a image
 class Surface
@@ -12,11 +13,11 @@ public:
 
 	Surface(int width, int height);
 	Surface(const Surface& );
-	Surface(Surface &&); // Move constructor
+
+	Surface(Surface &&) = default; // Move constructor
 	Surface() = default;
-	~Surface();
 	Surface& operator=(const Surface&);
-	Surface& operator=( Surface&&); // Move assigment operator
+	Surface& operator=( Surface&&) = default; // Move assigment operator
 	void PutPixel(int x, int y, Color c);
 	Color GetPixel(int x, int y) const;
 	int GetWidth() const;
@@ -27,7 +28,8 @@ public:
 private:
 
 	// Array of colors (pointers)
-	Color* pPixels = nullptr;
+	std::unique_ptr <Color[]> pPixels;
+	//olor* pPixels = nullptr;
 	int width = 0;
 	int height = 0;
 

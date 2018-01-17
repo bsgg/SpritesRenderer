@@ -28,6 +28,9 @@ Game::Game( MainWindow& wnd )
 	gfx( wnd )
 {
 
+	Surface s1(10 , 10);
+	Surface s2 = std::move(s1);
+
 	/*for (int y = 0; y < surf.GetHeight(); y++)
 	{
 		for (int x = 0; x < surf.GetWidth(); x++)
