@@ -81,6 +81,9 @@
     <ClInclude Include="SpriteEffect.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Bencher.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DXErr.cpp">
@@ -164,5 +167,10 @@
     <Image Include="Fixedsys16x28.bmp">
       <Filter>Resource Files</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Benches.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
   </ItemGroup>
 </Project>

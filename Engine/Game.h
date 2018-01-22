@@ -29,6 +29,7 @@
 #include "Character.h"
 #include "Font.h"
 #include "Sound.h"
+#include "Bencher.h"
 
 class Game
 {
@@ -57,4 +58,10 @@ private:
 	Font font = "Images\\Fixedsys16x28.bmp";
 
 	Sound hit = L"Sounds\\hit.wav";
+
+
+
+	Surface s = { "Images\\link90x90.bmp" };
+	std::vector<Vei2> positions;
+	Bencher bencher;
 };

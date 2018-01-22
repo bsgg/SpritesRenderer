@@ -20,6 +20,8 @@
  ******************************************************************************************/
 #include "MainWindow.h"
 #include "Game.h"
+#include <random>
+#include "SpriteEffect.h"
 
 
 Game::Game( MainWindow& wnd )
@@ -30,6 +32,17 @@ Game::Game( MainWindow& wnd )
 
 	Surface s1(10 , 10);
 	Surface s2 = std::move(s1);
+
+
+	std::mt19937 rng(69);
+	std::uniform_int_distribution<int> xd(0, Graphics::ScreenWidth - s.GetWidth() - 1);
+	std::uniform_int_distribution<int> yd(0, Graphics::ScreenHeight - s.GetHeight() - 1);
+
+	for (int i = 0; i < 50; i++)
+	{
+		positions.push_back({ xd(rng),yd(rng) });
+	}
+
 
 	/*for (int y = 0; y < surf.GetHeight(); y++)
 	{
@@ -56,7 +69,7 @@ void Game::UpdateModel()
 {
 
 	// process key messages while any remain
-	while (!wnd.kbd.KeyIsEmpty())
+	/*while (!wnd.kbd.KeyIsEmpty())
 	{
 		const auto e = wnd.kbd.ReadKey();
 		// only interested in space bar presses
@@ -87,7 +100,7 @@ void Game::UpdateModel()
 
 
 	link.SetDirection(dir);
-	link.Update(ft.Mark());
+	link.Update(ft.Mark());*/
 }
 
 void Game::ComposeFrame()
@@ -103,9 +116,20 @@ void Game::ComposeFrame()
 	gfx.DrawSprite(xPos, yPos, source, gfx.GetScreenRect(), surf);*/
 
 	//marleRight.Draw( { wnd.mouse.GetPosX(), wnd.mouse.GetPosY() }, gfx);
-	font.DrawText("Hi Bea!\nHow are you?", wnd.mouse.GetPos(), Colors::Cyan, gfx);
-	link.Draw(gfx);
+	/*font.DrawText("Hi Bea!\nHow are you?", wnd.mouse.GetPos(), Colors::Cyan, gfx);
+	link.Draw(gfx);*/
 
 	
+	bencher.Start();
+
+	for (const auto& pos : positions)
+	{
+		gfx.DrawSprite(pos.x, pos.y, s, SpriteEffect::Copy{});
+	}
+
+	if (bencher.End())
+	{
+		OutputDebugString((std::wstring(bencher) + L"\n").c_str());
+	}
 
 }

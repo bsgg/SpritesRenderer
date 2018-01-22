@@ -137,6 +137,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h" />
+    <ClInclude Include="Bencher.h" />
     <ClInclude Include="Character.h" />
     <ClInclude Include="ChiliException.h" />
     <ClInclude Include="ChiliWin.h" />
@@ -248,6 +249,9 @@
     <Image Include="link90x90.bmp" />
     <Image Include="marle32x48.bmp" />
     <Image Include="pilgrim108x140.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Benches.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
