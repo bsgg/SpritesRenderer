@@ -53,7 +53,9 @@ Surface::Surface(const std::string& filename)
 
 	}
 
-	pPixels = std::make_unique<Color[]>(width*height);
+
+	pixels.resize(width * height);
+	//pPixels = std::make_unique<Color[]>(width*height);
 
 	// Load the data into the array of pixels
 	// Seek the pixels start
@@ -99,25 +101,32 @@ Surface::Surface(int width, int height)
 	:
 	width(width),
 	height(height),
-	pPixels( new Color[width*height])
+	//pPixels( new Color[width*height])
+	pixels(width * height)
 {	
 }
 
-Surface::Surface(const Surface& rhs)
+Surface::Surface(Surface&& donor)
+{
+	*this = std::move(donor);
+}
+
+/*Surface::Surface(const Surface& rhs)
 	:
-	Surface(rhs.width, rhs.height)
+	Surface(rhs.width, rhs.height),
+
 {
 	const int nPixels = width * height;
 	for (int i = 0; i < nPixels; i++)
 	{
 		pPixels[i] = rhs.pPixels[i];
 	}
-}
+}*/
 
 
-Surface& Surface::operator=(const Surface& rhs)
+Surface& Surface::operator=(Surface&& rhs)
 {
-	if (&rhs != this)
+	/*if (&rhs != this)
 	{
 		width = rhs.width;
 		height = rhs.height;
@@ -130,8 +139,17 @@ Surface& Surface::operator=(const Surface& rhs)
 		{
 			pPixels[i] = rhs.pPixels[i];
 		}
-	}
 
+		
+	}*/
+
+	return *this;
+
+	width = rhs.width;
+	height = rhs.height;
+	pixels = std::move(rhs.pixels);
+	rhs.width = 0;
+	rhs.height = 0;
 	return *this;
 }
 
@@ -143,7 +161,7 @@ void Surface::PutPixel(int x, int y, Color c)
 	assert(y >= 0);
 	assert(y < height);
 
-	pPixels[y * width + x] = c;
+	//pPixels[y * width + x] = c;
 }
 
 Color Surface::GetPixel(int x, int y) const
@@ -153,7 +171,7 @@ Color Surface::GetPixel(int x, int y) const
 	assert(y >= 0);
 	assert(y < height);
 
-	return pPixels[y * width + x];
+	//return pPixels[y * width + x];
 }
 
 int Surface::GetWidth() const
@@ -170,4 +188,10 @@ int Surface::GetHeight() const
 RectI Surface::GetRect() const
 {
 	return { 0, width, 0, height };
+}
+
+
+const Color* Surface::Data() const
+{
+	return pixels.data();
 }

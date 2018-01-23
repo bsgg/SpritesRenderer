@@ -152,7 +152,7 @@ private:
 	Microsoft::WRL::ComPtr<ID3D11InputLayout>			pInputLayout;
 	Microsoft::WRL::ComPtr<ID3D11SamplerState>			pSamplerState;
 	D3D11_MAPPED_SUBRESOURCE							mappedSysBufferTexture;
-	Color*                                              pSysBuffer = nullptr;
+	Surface                                             pSysBuffer;
 public:
 	static constexpr int ScreenWidth = 800;
 	static constexpr int ScreenHeight = 600;
