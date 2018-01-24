@@ -44,6 +44,9 @@ Game::Game( MainWindow& wnd )
 	}
 
 
+	/*Surface donor("Images\\link90x90.bmp");
+	Surface recipient = std::move(donor);*/
+
 	/*for (int y = 0; y < surf.GetHeight(); y++)
 	{
 		for (int x = 0; x < surf.GetWidth(); x++)
