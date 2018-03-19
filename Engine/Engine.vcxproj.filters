@@ -16,6 +16,12 @@
     <Filter Include="Shaders">
       <UniqueIdentifier>{8b6c92a8-f65d-451e-80e3-d65773602b92}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\PacmacMapGenerator">
+      <UniqueIdentifier>{a6405d0f-78a9-451e-bd59-5a6e8fc4e313}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\PacmacMapGenerator">
+      <UniqueIdentifier>{064b9b55-f4c0-4927-acfb-e5f4596d2aac}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ChiliWin.h">
@@ -84,6 +90,15 @@
     <ClInclude Include="Bencher.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Shape.h">
+      <Filter>Header Files\PacmacMapGenerator</Filter>
+    </ClInclude>
+    <ClInclude Include="Definitions.h">
+      <Filter>Header Files\PacmacMapGenerator</Filter>
+    </ClInclude>
+    <ClInclude Include="PacmanMapGenerator.h">
+      <Filter>Header Files\PacmacMapGenerator</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DXErr.cpp">
@@ -133,6 +148,12 @@
     </ClCompile>
     <ClCompile Include="GraphicsOD.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Shape.cpp">
+      <Filter>Source Files\PacmacMapGenerator</Filter>
+    </ClCompile>
+    <ClCompile Include="PacmanMapGenerator.cpp">
+      <Filter>Source Files\PacmacMapGenerator</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

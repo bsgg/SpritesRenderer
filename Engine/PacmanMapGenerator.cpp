@@ -1,11 +1,8 @@
 #include "PacmanMapGenerator.h"
+#include "Shape.h"
 
 namespace MapGenerator
 {
-
-
-
-
 	PacmanMapGenerator::PacmanMapGenerator():
 		currentGrid(new Matrix2D<EGridDefinitions::XCOLS, EGridDefinitions::YROWS, int>())
 
@@ -38,13 +35,21 @@ namespace MapGenerator
 				// The shapes is correct
 				if (testShape)
 				{
+					Shape s(coord.x, coord.y, shapeType);
 
+					// Add 1 to the right coord if the type of shape is INVERT_LEFT_L
+					if (shapeType == EShapeType::INVERT_LEFT_L)
+					{
+						coord.x = coord.x + 1;
+						s.SetX(coord.x);
+						s.SetY(coord.y);
+					}
 				}
 			}
 		}
 	}
 
-	bool PacmanMapGenerator::tryPlaceShape(Matrix2D<EGridDefinitions::XCOLS, EGridDefinitions::YROWS, int> * grid, Coords coord, EShapeType shapeType, int totalSteps, bool & testShape)
+	void PacmanMapGenerator::tryPlaceShape(Matrix2D<EGridDefinitions::XCOLS, EGridDefinitions::YROWS, int> * grid, Coords coord, EShapeType shapeType, int totalSteps, bool & testShape)
 	{
 		
 		if (totalSteps >= 0)
@@ -55,7 +60,7 @@ namespace MapGenerator
 
 				switch (shapeType)
 				{				
-				case MapGenerator::PacmanMapGenerator::DOWN: // | Shape
+				case EShapeType::DOWN: // | Shape
 
 					// Check boundaries
 					if ((coord.y + 1) < EGridDefinitions::YROWS)
@@ -79,7 +84,7 @@ namespace MapGenerator
 					}
 
 				break;
-				case MapGenerator::PacmanMapGenerator::ACROSS: // -- Shape
+				case EShapeType::ACROSS: // -- Shape
 
 															   // Check boundaries
 					if ((coord.x + 1) < EGridDefinitions::XCOLS)
@@ -103,7 +108,7 @@ namespace MapGenerator
 					}
 
 				break;
-				case MapGenerator::PacmanMapGenerator::RIGHT_L:  // L Shape (Down-Right direction)
+				case EShapeType::RIGHT_L:  // L Shape (Down-Right direction)
 
 					if (totalSteps == 2) // Step down
 					{
@@ -136,7 +141,7 @@ namespace MapGenerator
 					}
 
 					break;
-					case MapGenerator::PacmanMapGenerator::LEFT_L:  // Mirror L Shape (Down-Left direction)
+					case EShapeType::LEFT_L:  // Mirror L Shape (Down-Left direction)
 
 						if (totalSteps == 2) // Step down
 						{
@@ -170,7 +175,7 @@ namespace MapGenerator
 
 
 					break;
-					case MapGenerator::PacmanMapGenerator::INVERT_RIGHT_L: // L Shape Upside down (Right - Down direction)
+					case EShapeType::INVERT_RIGHT_L: // L Shape Upside down (Right - Down direction)
 
 						if (totalSteps == 2) // Step right
 						{
@@ -203,7 +208,7 @@ namespace MapGenerator
 						}
 
 					break;
-					case MapGenerator::PacmanMapGenerator::INVERT_LEFT_L: // Mirror L Shape Upside down (Left - Down direction)
+					case EShapeType::INVERT_LEFT_L: // Mirror L Shape Upside down (Left - Down direction)
 
 						if (totalSteps == 2) // Step left
 						{

@@ -101,7 +101,7 @@ namespace MapGenerator
 
 	private:
 		// Test if a shape is suitable for a given coord
-		bool tryPlaceShape(Matrix2D<EGridDefinitions::XCOLS, EGridDefinitions::YROWS, int> * grid, Coords coord, EShapeType shapeType, int totalSteps, bool & testShape);
+		void tryPlaceShape(Matrix2D<EGridDefinitions::XCOLS, EGridDefinitions::YROWS, int> * grid, Coords coord, EShapeType shapeType, int totalSteps, bool & testShape);
 
 	private:
 
