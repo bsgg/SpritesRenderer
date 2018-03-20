@@ -1,6 +1,7 @@
 #pragma once
 #include <vector>
 #include "Definitions.h"
+#include "Shape.h"
 
 using namespace std;
 
@@ -92,9 +93,6 @@ namespace MapGenerator
 
 		enum ETILETYPE {CLEAN, SHAPE, OBSTACLE, SPAWN };
 
-		/*const unsigned int yRows = 15;
-		const unsigned int xCols = 6;*/
-
 		PacmanMapGenerator();
 
 		void GenerateGrid(Matrix2D<EGridDefinitions::XCOLS, EGridDefinitions::YROWS, int> grid, Coords coord, EShapeType shapeType, int totalShapes);
@@ -102,6 +100,11 @@ namespace MapGenerator
 	private:
 		// Test if a shape is suitable for a given coord
 		void tryPlaceShape(Matrix2D<EGridDefinitions::XCOLS, EGridDefinitions::YROWS, int> * grid, Coords coord, EShapeType shapeType, int totalSteps, bool & testShape);
+		void placeShape(Matrix2D<EGridDefinitions::XCOLS, EGridDefinitions::YROWS, int> * grid, Shape * shape, Coords coord, int totalSteps);
+		void coverShape(Matrix2D<EGridDefinitions::XCOLS, EGridDefinitions::YROWS, int> * grid, const Shape shape, Coords coord, int totalSteps);
+		void cover(Matrix2D<EGridDefinitions::XCOLS, EGridDefinitions::YROWS, int> * grid, Coords coord, int totalSteps, ETILETYPE tileType);
+
+		Coords findNextSpawnLocation(Matrix2D<EGridDefinitions::XCOLS, EGridDefinitions::YROWS, int> * grid, Coords coord);
 
 	private:
 
