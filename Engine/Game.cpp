@@ -71,6 +71,11 @@ Game::Game( MainWindow& wnd )
 	Coords coord(0, 0);
 	puzzle.GenerateGrid(grid, coord, EShapeType::NONE, 14);
 
+	int d = puzzle.GetShapesNumber();
+	int a = puzzle.GetSolutionNumber();
+
+	int e;
+
 }
 
 void Game::Go()

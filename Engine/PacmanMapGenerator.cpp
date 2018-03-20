@@ -118,6 +118,54 @@ namespace MapGenerator
 				}
 			}
 		}
+
+		if (totalShapes == 0)
+		{
+			bool isDifferent = true;
+
+			int nDifferentSolutions = 0;
+
+			if (solutionList.size() > 0)
+			{
+				for (int k = 0; k < solutionList.size(); k++)
+				{
+					bool checkSolution = true;
+					for (int x = 0; x < EGridDefinitions::XCOLS; x++)
+					{
+						for (int y = 0; y < EGridDefinitions::YROWS; y++)
+						{
+							if ((grid.matrix[x][y]) != (solutionList[k].matrix[x][y]))
+							{
+								checkSolution = false;
+								break;
+							}
+						}
+						if (!checkSolution)
+						{
+							break;
+						}
+					}
+				}
+			}
+
+			if (isDifferent)
+			{
+				solutionNumber++;
+				solutionList.push_back(grid);
+				currentGrid = &grid;
+			}
+		}
+
+		shapesNumber = 0;
+	}
+
+	int PacmanMapGenerator::GetShapesNumber() const
+	{
+		return shapesNumber;
+	}
+	int PacmanMapGenerator::GetSolutionNumber() const
+	{
+		return solutionNumber;
 	}
 
 	void PacmanMapGenerator::tryPlaceShape(Matrix2D<EGridDefinitions::XCOLS, EGridDefinitions::YROWS, int> * grid, Coords coord, EShapeType shapeType, int totalSteps, bool & testShape)

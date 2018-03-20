@@ -97,6 +97,9 @@ namespace MapGenerator
 
 		void GenerateGrid(Matrix2D<EGridDefinitions::XCOLS, EGridDefinitions::YROWS, int> grid, Coords coord, EShapeType shapeType, int totalShapes);
 
+		int GetShapesNumber() const;
+		int GetSolutionNumber() const;
+
 	private:
 		// Test if a shape is suitable for a given coord
 		void tryPlaceShape(Matrix2D<EGridDefinitions::XCOLS, EGridDefinitions::YROWS, int> * grid, Coords coord, EShapeType shapeType, int totalSteps, bool & testShape);
@@ -113,6 +116,8 @@ namespace MapGenerator
 		const int sizeShape = 3;
 		int shapesNumber = 0;
 		int solutionNumber = 0;
+
+		
 
 		vector<Matrix2D<EGridDefinitions::XCOLS, EGridDefinitions::YROWS, int>> solutionList;
 
