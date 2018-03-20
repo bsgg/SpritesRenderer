@@ -23,6 +23,11 @@
 #include <random>
 #include "SpriteEffect.h"
 
+#include "PacmanMapGenerator.h"
+#include "Definitions.h"
+
+using namespace MapGenerator;
+
 
 Game::Game( MainWindow& wnd )
 	:
@@ -58,6 +63,14 @@ Game::Game( MainWindow& wnd )
 			));
 		}
 	}*/
+
+	Matrix2D<PacmanMapGenerator::EGridDefinitions::XCOLS, PacmanMapGenerator::EGridDefinitions::YROWS, int> grid;
+	grid.Initialize(0);
+
+	PacmanMapGenerator puzzle;
+	Coords coord(0, 0);
+	puzzle.GenerateGrid(grid, coord, EShapeType::NONE, 14);
+
 }
 
 void Game::Go()
@@ -123,7 +136,7 @@ void Game::ComposeFrame()
 	link.Draw(gfx);*/
 
 	
-	bencher.Start();
+	/*bencher.Start();
 
 	for (const auto& pos : positions)
 	{
@@ -133,6 +146,6 @@ void Game::ComposeFrame()
 	if (bencher.End())
 	{
 		OutputDebugString((std::wstring(bencher) + L"\n").c_str());
-	}
+	}*/
 
 }
