@@ -17,12 +17,15 @@ namespace MapGenerator
 		// No shapes (first time), call GenerateGrid with all 6 posibilites
 		if (shapeType == EShapeType::NONE)
 		{
-			GenerateGrid(grid, coord, EShapeType::DOWN, totalShapes);
+			
 			GenerateGrid(grid, coord, EShapeType::ACROSS, totalShapes);
-			GenerateGrid(grid, coord, EShapeType::RIGHT_L, totalShapes);
-			GenerateGrid(grid, coord, EShapeType::LEFT_L, totalShapes);
-			GenerateGrid(grid, coord, EShapeType::INVERT_RIGHT_L, totalShapes);
-			GenerateGrid(grid, coord, EShapeType::INVERT_LEFT_L, totalShapes);
+			GenerateGrid(grid, coord, EShapeType::DOWN, totalShapes);
+
+			GenerateGrid(grid, coord, EShapeType::L, totalShapes);
+			GenerateGrid(grid, coord, EShapeType::MIRROR_L, totalShapes);
+
+			GenerateGrid(grid, coord, EShapeType::UPSIDEDOWN_MIRROR_L, totalShapes);
+			GenerateGrid(grid, coord, EShapeType::UPSIDEDOWN_L, totalShapes);
 		}
 		else
 		{
@@ -38,7 +41,7 @@ namespace MapGenerator
 					Shape s(coord.x, coord.y, shapeType);
 
 					// Add 1 to the right coord if the type of shape is INVERT_LEFT_L
-					if (shapeType == EShapeType::INVERT_LEFT_L)
+					if (shapeType == EShapeType::UPSIDEDOWN_L)
 					{
 						coord.x = coord.x + 1;
 						s.SetX(coord.x);
@@ -62,12 +65,14 @@ namespace MapGenerator
 
 						if ((coord.x > -1) && (coord.y > -1))
 						{
-							GenerateGrid(grid, coord, EShapeType::DOWN, totalShapes);
 							GenerateGrid(grid, coord, EShapeType::ACROSS, totalShapes);
-							GenerateGrid(grid, coord, EShapeType::RIGHT_L, totalShapes);
-							GenerateGrid(grid, coord, EShapeType::LEFT_L, totalShapes);
-							GenerateGrid(grid, coord, EShapeType::INVERT_RIGHT_L, totalShapes);
-							GenerateGrid(grid, coord, EShapeType::INVERT_LEFT_L, totalShapes);
+							GenerateGrid(grid, coord, EShapeType::DOWN, totalShapes);
+							
+							GenerateGrid(grid, coord, EShapeType::L, totalShapes);
+							GenerateGrid(grid, coord, EShapeType::MIRROR_L, totalShapes);
+
+							GenerateGrid(grid, coord, EShapeType::UPSIDEDOWN_MIRROR_L, totalShapes);
+							GenerateGrid(grid, coord, EShapeType::UPSIDEDOWN_L, totalShapes);
 						}
 					}
 
@@ -83,7 +88,7 @@ namespace MapGenerator
 						int tShape = shapeType;
 
 						// Check if the shape is the last one
-						if ((tShape + 1) > EShapeType::INVERT_LEFT_L)
+						if ((tShape + 1) > EShapeType::UPSIDEDOWN_L)
 						{
 							tShape = EShapeType::DOWN;
 						}
@@ -125,7 +130,7 @@ namespace MapGenerator
 
 			int nDifferentSolutions = 0;
 
-			if (solutionList.size() > 0)
+			/*if (solutionList.size() > 0)
 			{
 				for (int k = 0; k < solutionList.size(); k++)
 				{
@@ -146,12 +151,12 @@ namespace MapGenerator
 						}
 					}
 				}
-			}
+			}*/
 
 			if (isDifferent)
 			{
 				solutionNumber++;
-				solutionList.push_back(grid);
+				SolutionList.push_back(grid);
 				currentGrid = &grid;
 			}
 		}
@@ -227,7 +232,7 @@ namespace MapGenerator
 					}
 
 					break;
-				case EShapeType::RIGHT_L:  // L Shape (Down-Right direction)
+				case EShapeType::L:  // L Shape (Down-Right direction)
 
 					if (totalSteps == 2) // Step down
 					{
@@ -260,7 +265,7 @@ namespace MapGenerator
 					}
 
 					break;
-				case EShapeType::LEFT_L:  // Mirror L Shape (Down-Left direction)
+				case EShapeType::MIRROR_L:  // Mirror L Shape (Down-Left direction)
 
 					if (totalSteps == 2) // Step down
 					{
@@ -294,7 +299,7 @@ namespace MapGenerator
 
 
 					break;
-				case EShapeType::INVERT_RIGHT_L: // L Shape Upside down (Right - Down direction)
+				case EShapeType::UPSIDEDOWN_MIRROR_L: // L Shape Upside down (Right - Down direction)
 
 					if (totalSteps == 2) // Step right
 					{
@@ -327,7 +332,7 @@ namespace MapGenerator
 					}
 
 					break;
-				case EShapeType::INVERT_LEFT_L: // Mirror L Shape Upside down (Left - Down direction)
+				case EShapeType::UPSIDEDOWN_L: // Mirror L Shape Upside down (Left - Down direction)
 
 					if (totalSteps == 2) // Step left
 					{
@@ -405,7 +410,7 @@ namespace MapGenerator
 					}				
 
 				break;
-				case EShapeType::RIGHT_L:  // L Shape (Down-Right direction)
+				case EShapeType::L:  // L Shape (Down-Right direction)
 
 					// Down
 					if (((coord.y + 1) < EGridDefinitions::YROWS) && (totalSteps > 1))
@@ -422,7 +427,7 @@ namespace MapGenerator
 					}
 
 				break;
-				case EShapeType::LEFT_L:  // Mirror L Shape (Down-Left direction)
+				case EShapeType::MIRROR_L:  // Mirror L Shape (Down-Left direction)
 
 				// Down
 				if (((coord.y + 1) < EGridDefinitions::YROWS) && (totalSteps > 1))
@@ -440,7 +445,7 @@ namespace MapGenerator
 
 				break;
 
-				case EShapeType::INVERT_RIGHT_L: // L Shape Upside down (Right - Down direction)
+				case EShapeType::UPSIDEDOWN_MIRROR_L: // L Shape Upside down (Right - Down direction)
 
 					 // Rigth
 					if (((coord.x + 1) < EGridDefinitions::XCOLS) && (totalSteps > 1))
@@ -457,7 +462,7 @@ namespace MapGenerator
 					}
 
 				break;
-				case EShapeType::INVERT_LEFT_L: // Mirror L Shape Upside down (Left - Down direction)
+				case EShapeType::UPSIDEDOWN_L: // Mirror L Shape Upside down (Left - Down direction)
 
 				// Left
 				if (((coord.x - 1) >= 0) && (totalSteps > 1))
@@ -481,8 +486,8 @@ namespace MapGenerator
 	{
 		if (totalSteps >= 0)
 		{
-			// cover the shape with the firt cover, with 2
-			cover(grid, coord, 1, ETILETYPE::OBSTACLE);
+			// Cover the shape with obstacles
+			cover(grid, coord.x, coord.y, 1, ETILETYPE::OBSTACLE);
 
 			switch (shape.GetType())
 			{
@@ -506,7 +511,7 @@ namespace MapGenerator
 					}
 				break;
 
-				case EShapeType::RIGHT_L:  // L Shape (Down-Right direction)
+				case EShapeType::L:  // L Shape (Down-Right direction)
 
 										   // Down
 					if (((coord.y + 1) < EGridDefinitions::YROWS) && (totalSteps > 1))
@@ -523,7 +528,7 @@ namespace MapGenerator
 					}
 
 					break;
-				case EShapeType::LEFT_L:  // Mirror L Shape (Down-Left direction)
+				case EShapeType::MIRROR_L:  // Mirror L Shape (Down-Left direction)
 
 										  // Down
 					if (((coord.y + 1) < EGridDefinitions::YROWS) && (totalSteps > 1))
@@ -541,7 +546,7 @@ namespace MapGenerator
 
 					break;
 
-				case EShapeType::INVERT_RIGHT_L: // L Shape Upside down (Right - Down direction)
+				case EShapeType::UPSIDEDOWN_MIRROR_L: // L Shape Upside down (Right - Down direction)
 
 												 // Rigth
 					if (((coord.x + 1) < EGridDefinitions::XCOLS) && (totalSteps > 1))
@@ -558,7 +563,7 @@ namespace MapGenerator
 					}
 
 					break;
-				case EShapeType::INVERT_LEFT_L: // Mirror L Shape Upside down (Left - Down direction)
+				case EShapeType::UPSIDEDOWN_L: // Mirror L Shape Upside down (Left - Down direction)
 
 												// Left
 					if (((coord.x - 1) >= 0) && (totalSteps > 1))
@@ -581,70 +586,119 @@ namespace MapGenerator
 		}
 	}
 
-	void PacmanMapGenerator::cover(Matrix2D<EGridDefinitions::XCOLS, EGridDefinitions::YROWS, int> * grid, Coords coord, int totalSteps, ETILETYPE tileType)
+	void PacmanMapGenerator::cover(Matrix2D<EGridDefinitions::XCOLS, EGridDefinitions::YROWS, int> * grid, int x, int y, int totalSteps, ETILETYPE tileType)
 	{
 		// Left
-		if (coord.x - 1 >= 0)
+		if (x - 1 >= 0)
 		{
-			coord.x = coord.x - 1;
+			if ((grid->matrix[x-1][y] == ETILETYPE::CLEAN) || (grid->matrix[x - 1][y] == ETILETYPE::SPAWN))
+			{
+				grid->matrix[x - 1][y] = tileType;
+			}
+
+			if (totalSteps > 0)
+			{
+				cover(grid, x - 1,y, 0, ETILETYPE::SPAWN);
+			}
 		}
 
 		// Up left
-		if ((coord.x - 1 >= 0) && (coord.y - 1 >= 0))
+		if ((x - 1 >= 0) && (y - 1 >= 0))
 		{
-			coord.x = coord.x - 1;
-			coord.y = coord.y - 1;
+			if ((grid->matrix[x - 1][y-1] == ETILETYPE::CLEAN) || (grid->matrix[x - 1][y - 1] == ETILETYPE::SPAWN))
+			{
+				grid->matrix[x - 1][y - 1] = tileType;
+			}
+
+			if (totalSteps > 0)
+			{
+				cover(grid, x - 1, y - 1, 0, ETILETYPE::SPAWN);
+			}
 		}
 
 		// Up
-		if (coord.y - 1 >= 0)
+		if ((y - 1) >= 0)
 		{
-			coord.y = coord.y - 1;
+			if ((grid->matrix[x ][y - 1] == ETILETYPE::CLEAN) || (grid->matrix[x][y - 1] == ETILETYPE::SPAWN))
+			{
+				grid->matrix[x][y - 1] = tileType;
+			}
+
+			if (totalSteps > 0)
+			{
+				cover(grid, x, y - 1, 0, ETILETYPE::SPAWN);
+			}
 		}
 
 		// Up right
-		if ((coord.x + 1 < EGridDefinitions::XCOLS) && (coord.y - 1 >= 0))
+		if (((x + 1) < EGridDefinitions::XCOLS) && ((y - 1) >= 0))
 		{
-			coord.x = coord.x + 1;
-			coord.y = coord.y - 1;
+			if ((grid->matrix[x + 1][y - 1] == ETILETYPE::CLEAN) || (grid->matrix[x + 1][y - 1] == ETILETYPE::SPAWN))
+			{
+				grid->matrix[x + 1][y - 1] = tileType;
+			}
+
+			if (totalSteps > 0)
+			{
+				cover(grid, x + 1, y - 1, 0, ETILETYPE::SPAWN);
+			}
 		}
 
 		// Right
-		if (coord.x + 1 < EGridDefinitions::XCOLS)
+		if ((x + 1) < EGridDefinitions::XCOLS)
 		{
-			coord.x = coord.x + 1;
+			if ((grid->matrix[x + 1][y] == ETILETYPE::CLEAN) || (grid->matrix[x + 1][y] == ETILETYPE::SPAWN))
+			{
+				grid->matrix[x + 1][y] = tileType;
+			}
+
+			if (totalSteps > 0)
+			{
+				cover(grid, x + 1, y, 0, ETILETYPE::SPAWN);
+			}
 		}
 
 		// Down right
-		if ((coord.y + 1 < EGridDefinitions::YROWS) && (coord.x + 1 < EGridDefinitions::XCOLS) )
+		if (((y + 1) < EGridDefinitions::YROWS) && ((x + 1) < EGridDefinitions::XCOLS) )
 		{
+			if ((grid->matrix[x + 1][y + 1] == ETILETYPE::CLEAN) || (grid->matrix[x + 1][y + 1] == ETILETYPE::SPAWN))
+			{
+				grid->matrix[x + 1][y + 1] = tileType;
+			}
 
-			coord.x = coord.x + 1;
-			coord.y = coord.y + 1;
+			if (totalSteps > 0)
+			{
+				cover(grid, x + 1, y + 1, 0, ETILETYPE::SPAWN);
+			}
 
 		}
 
 		// Down
-		if (coord.y + 1 < EGridDefinitions::YROWS)
+		if ((y + 1) < EGridDefinitions::YROWS)
 		{
-			coord.y = coord.y + 1;			
+			if ((grid->matrix[x][y + 1] == ETILETYPE::CLEAN) || (grid->matrix[x][y + 1] == ETILETYPE::SPAWN))
+			{
+				grid->matrix[x][y + 1] = tileType;
+			}
+
+			if (totalSteps > 0)
+			{
+				cover(grid, x, y + 1, 0, ETILETYPE::SPAWN);
+			}
 		}
 
 		// Down left
-		if ((coord.y + 1 < EGridDefinitions::YROWS) && (coord.x - 1 >= 0 ))
+		if (((y + 1) < EGridDefinitions::YROWS) && ((x - 1) >= 0 ))
 		{
-			coord.x = coord.x - 1;
-			coord.y = coord.y + 1;
-		}
+			if ((grid->matrix[x - 1][y + 1] == ETILETYPE::CLEAN) || (grid->matrix[x - 1][y + 1] == ETILETYPE::SPAWN))
+			{
+				grid->matrix[x - 1][y + 1] = tileType;
+			}
 
-		if ((grid->matrix[coord.x][coord.y] == ETILETYPE::CLEAN) || (grid->matrix[coord.x][coord.y] == ETILETYPE::SPAWN))
-		{
-			grid->matrix[coord.x][coord.y] = tileType;
-		}
-
-		if (totalSteps > 0)
-		{
-			cover(grid, coord, 0, ETILETYPE::SPAWN);
+			if (totalSteps > 0)
+			{
+				cover(grid, x - 1, y + 1, 0, ETILETYPE::SPAWN);
+			}
 		}
 	}
 

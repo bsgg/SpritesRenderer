@@ -23,10 +23,9 @@
 #include <random>
 #include "SpriteEffect.h"
 
-#include "PacmanMapGenerator.h"
-#include "Definitions.h"
 
-using namespace MapGenerator;
+
+
 
 
 Game::Game( MainWindow& wnd )
@@ -63,16 +62,38 @@ Game::Game( MainWindow& wnd )
 			));
 		}
 	}*/
+	
 
-	Matrix2D<PacmanMapGenerator::EGridDefinitions::XCOLS, PacmanMapGenerator::EGridDefinitions::YROWS, int> grid;
-	grid.Initialize(0);
 
-	PacmanMapGenerator puzzle;
+	//Matrix2D<PacmanMapGenerator::EGridDefinitions::XCOLS, PacmanMapGenerator::EGridDefinitions::YROWS, int> grid;
+	Matrix2D<PacmanMapGenerator::EGridDefinitions::XCOLS, PacmanMapGenerator::EGridDefinitions::YROWS, int> auxGrid;
+	auxGrid.Initialize(PacmanMapGenerator::ETILETYPE::CLEAN);
+
+	//PacmanMapGenerator puzzle;
 	Coords coord(0, 0);
-	puzzle.GenerateGrid(grid, coord, EShapeType::NONE, 14);
 
-	int d = puzzle.GetShapesNumber();
-	int a = puzzle.GetSolutionNumber();
+	// Number of possible shapes
+	//int nPossibleShapes = 5;
+	PacmanMapGenerator generatedMap;
+	generatedMap.GenerateGrid(auxGrid, coord, EShapeType::NONE, PacmanMapGenerator::EGridDefinitions::TOTALSHAPES);
+
+	//int d = pacmanMaps.GetShapesNumber();
+	//int a = pacmanMaps.GetSolutionNumber();
+
+	int numSolutions =  generatedMap.SolutionList.size();
+
+	// Take first solution
+	if (numSolutions > 0)
+	{
+		for (int x = 0; x < PacmanMapGenerator::EGridDefinitions::XCOLS; x++)
+		{
+			for (int y = 0; y < PacmanMapGenerator::EGridDefinitions::YROWS; y++)
+			{
+				map.matrix[x][y] = generatedMap.SolutionList[0].matrix[x][y];
+			}
+		}
+		//map
+	}
 
 	int e;
 
@@ -126,6 +147,24 @@ void Game::UpdateModel()
 
 void Game::ComposeFrame()
 {
+	for (int x = 0; x < PacmanMapGenerator::EGridDefinitions::XCOLS; x++)
+	{
+		for (int y = 0; y < PacmanMapGenerator::EGridDefinitions::YROWS; y++)
+		{
+
+			if (map.matrix[x][y] == PacmanMapGenerator::ETILETYPE::SHAPE)
+			{
+				
+			}
+			else
+			{
+
+			}
+			
+		}
+	}
+
+
 	//gfx.DrawSprite(200, 200, surf);
 	//gfx.DrawSprite(0, 0, surf);
 

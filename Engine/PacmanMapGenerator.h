@@ -89,7 +89,7 @@ namespace MapGenerator
 
 
 	public:
-		enum EGridDefinitions { XCOLS = 6, YROWS = 15};		
+		enum EGridDefinitions { XCOLS = 6, YROWS = 2, TOTALSHAPES = 2};		
 
 		enum ETILETYPE {CLEAN, SHAPE, OBSTACLE, SPAWN };
 
@@ -100,12 +100,15 @@ namespace MapGenerator
 		int GetShapesNumber() const;
 		int GetSolutionNumber() const;
 
+
+		vector<Matrix2D<EGridDefinitions::XCOLS, EGridDefinitions::YROWS, int>> SolutionList;
+
 	private:
 		// Test if a shape is suitable for a given coord
 		void tryPlaceShape(Matrix2D<EGridDefinitions::XCOLS, EGridDefinitions::YROWS, int> * grid, Coords coord, EShapeType shapeType, int totalSteps, bool & testShape);
 		void placeShape(Matrix2D<EGridDefinitions::XCOLS, EGridDefinitions::YROWS, int> * grid, Shape * shape, Coords coord, int totalSteps);
 		void coverShape(Matrix2D<EGridDefinitions::XCOLS, EGridDefinitions::YROWS, int> * grid, const Shape shape, Coords coord, int totalSteps);
-		void cover(Matrix2D<EGridDefinitions::XCOLS, EGridDefinitions::YROWS, int> * grid, Coords coord, int totalSteps, ETILETYPE tileType);
+		void cover(Matrix2D<EGridDefinitions::XCOLS, EGridDefinitions::YROWS, int> * grid, int x, int y, int totalSteps, ETILETYPE tileType);
 
 		Coords findNextSpawnLocation(Matrix2D<EGridDefinitions::XCOLS, EGridDefinitions::YROWS, int> * grid, Coords coord);
 
@@ -119,7 +122,7 @@ namespace MapGenerator
 
 		
 
-		vector<Matrix2D<EGridDefinitions::XCOLS, EGridDefinitions::YROWS, int>> solutionList;
+		
 
 		Matrix2D<EGridDefinitions::XCOLS, EGridDefinitions::YROWS, int> * currentGrid;
 
