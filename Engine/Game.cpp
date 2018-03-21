@@ -65,38 +65,6 @@ Game::Game( MainWindow& wnd )
 	
 
 
-	//Matrix2D<PacmanMapGenerator::EGridDefinitions::XCOLS, PacmanMapGenerator::EGridDefinitions::YROWS, int> grid;
-	Matrix2D<PacmanMapGenerator::EGridDefinitions::XCOLS, PacmanMapGenerator::EGridDefinitions::YROWS, int> auxGrid;
-	auxGrid.Initialize(PacmanMapGenerator::ETILETYPE::CLEAN);
-
-	//PacmanMapGenerator puzzle;
-	Coords coord(0, 0);
-
-	// Number of possible shapes
-	//int nPossibleShapes = 5;
-	PacmanMapGenerator generatedMap;
-	generatedMap.GenerateGrid(auxGrid, coord, EShapeType::NONE, PacmanMapGenerator::EGridDefinitions::TOTALSHAPES);
-
-	//int d = pacmanMaps.GetShapesNumber();
-	//int a = pacmanMaps.GetSolutionNumber();
-
-	int numSolutions =  generatedMap.SolutionList.size();
-
-	// Take first solution
-	if (numSolutions > 0)
-	{
-		for (int x = 0; x < PacmanMapGenerator::EGridDefinitions::XCOLS; x++)
-		{
-			for (int y = 0; y < PacmanMapGenerator::EGridDefinitions::YROWS; y++)
-			{
-				map.matrix[x][y] = generatedMap.SolutionList[0].matrix[x][y];
-			}
-		}
-		//map
-	}
-
-	int e;
-
 }
 
 void Game::Go()
@@ -111,7 +79,7 @@ void Game::UpdateModel()
 {
 
 	// process key messages while any remain
-	/*while (!wnd.kbd.KeyIsEmpty())
+	while (!wnd.kbd.KeyIsEmpty())
 	{
 		const auto e = wnd.kbd.ReadKey();
 		// only interested in space bar presses
@@ -142,27 +110,12 @@ void Game::UpdateModel()
 
 
 	link.SetDirection(dir);
-	link.Update(ft.Mark());*/
+	link.Update(ft.Mark());
 }
 
 void Game::ComposeFrame()
 {
-	for (int x = 0; x < PacmanMapGenerator::EGridDefinitions::XCOLS; x++)
-	{
-		for (int y = 0; y < PacmanMapGenerator::EGridDefinitions::YROWS; y++)
-		{
-
-			if (map.matrix[x][y] == PacmanMapGenerator::ETILETYPE::SHAPE)
-			{
-				
-			}
-			else
-			{
-
-			}
-			
-		}
-	}
+	
 
 
 	//gfx.DrawSprite(200, 200, surf);
@@ -180,7 +133,7 @@ void Game::ComposeFrame()
 	link.Draw(gfx);*/
 
 	
-	/*bencher.Start();
+	bencher.Start();
 
 	for (const auto& pos : positions)
 	{
@@ -190,6 +143,6 @@ void Game::ComposeFrame()
 	if (bencher.End())
 	{
 		OutputDebugString((std::wstring(bencher) + L"\n").c_str());
-	}*/
+	}
 
 }

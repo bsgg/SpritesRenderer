@@ -31,12 +31,6 @@
 #include "Sound.h"
 #include "Bencher.h"
 
-
-#include "PacmanMapGenerator.h"
-#include "Definitions.h"
-
-using namespace MapGenerator;
-
 class Game
 {
 public:
@@ -70,8 +64,5 @@ private:
 	Surface s = { "Images\\link90x90.bmp" };
 	std::vector<Vei2> positions;
 	Bencher bencher;
-
-	Matrix2D<PacmanMapGenerator::EGridDefinitions::XCOLS, PacmanMapGenerator::EGridDefinitions::YROWS, int> map;
-	
 
 };
